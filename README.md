@@ -8,3 +8,4 @@ expressions are a powerful way to match text, they are sometimes difficult to
 document and understand when written.  R also has escaping issues with regular
 expression this library hopes to solve.
 
+This package is inspired by @hadley's [tweet](https://twitter.com/hadleywickham/status/514102801081708544)

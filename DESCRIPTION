@@ -1,0 +1,16 @@
+Package: regulaR
+Title: Regular expressions for humans, a port of Ruby's Regularity library to R.
+Version: 0.1
+Authors@R: "Jim Hester <james.f.hester@gmail.com> [aut, cre]"
+Description: regulaR is a human friendly regular expression builder for R.
+    While regular expressions are a powerful way to match text, they are
+    sometimes difficult to document and understand when written.  R also has
+    escaping issues with regular expression this library hopes to solve.
+Imports:
+    magrittr
+Depends:
+    R (>= 3.1.1)
+License: MIT + LICENCE
+LazyData: true
+Suggests:
+    testthat

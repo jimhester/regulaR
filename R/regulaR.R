@@ -1,17 +1,20 @@
-regulaR = function(...) {
-  structure('', class='regex')
-}
-
 #' @name %>%
 #' @importFrom magrittr %>%
 #' @export
 NULL
 
+#' @export
+regulaR = function(...) {
+  structure('', class='regex')
+}
+
+#' @export
 start_with = function(obj, ...){
   if(nchar(obj) %!=% 0L){ stop('start_with called multiple times') }
   write(obj, '^%s', list(...))
 }
 
+#' @export
 write = function(obj, str, args=NULL){
   if(attr(obj, 'ended') %!=% NULL){
     stop("end_with has already been called")
@@ -24,45 +27,55 @@ write = function(obj, str, args=NULL){
   }
 }
 
+#' @export
 append = function(obj, ...){
   write(obj, interpret(list(...)))
 }
 then = append
 
+#' @export
 end_with = function(obj, ...){
   obj = write(obj, '%s$', ...)
   attr(obj, 'ended') = TRUE
   obj
 }
 
+#' @export
 maybe = function(obj, ...){
   write(obj, '%s?', ...)
 }
 
+#' @export
 not = function(obj, ...){
   write(obj, '(?!%s)', ...)
 }
 
+#' @export
 one_of = function(obj, ...){
   write(obj, no_escape(sprintf('(?:%s)', paste0(escape(...), collapse='|'))))
 }
 
+#' @export
 at_least = function(obj, times, pattern){
   between(obj, c(times, NA), pattern)
 }
 
+#' @export
 at_most = function(obj, times, pattern){
   between(obj, c(NA, times), pattern)
 }
 
+#' @export
 zero_or_more = function(obj, pattern){
   write(obj, "%s*", pattern)
 }
 
+#' @export
 one_or_more = function(obj, pattern){
   write(obj, "%s+", pattern)
 }
 
+#' @export
 between = function(obj, range, pattern){
   if(length(range) %!=% 2L || !any(is.integer(range))){
     stop('must provide an array of 2 elements, one of them must be an integer')
@@ -72,6 +85,7 @@ between = function(obj, range, pattern){
 
   write(obj, sprintf('%s{%s,%s}', interpret(pattern), range[1], range[2]))
 }
+#' @export
 interpret = function(args){
   if(length(args) %==% 2L){
     numbered_constraint(args[[1]], args[[2]])
@@ -85,6 +99,7 @@ interpret = function(args){
 }
 
 
+#' @export
 numbered_constraint = function(count, type){
     pattern = patterned_constraint(type)
     if(is.null(pattern) || length(pattern) %==% 0){
@@ -92,12 +107,14 @@ numbered_constraint = function(count, type){
     }
     sprintf('%s{%s}', pattern, count)
 }
+#' @export
 patterned_constraint = function(pattern){
   escape(pattern)
 }
 
 ESCAPED_CHARS = c('*', '.', '?', '^', '+', '$', '|', '(', ')', '[', ']', '{', '}')
 
+#' @export
 escape = function(pattern){
   if(attr(pattern, 'no_escape') %==% TRUE){
     pattern
@@ -107,6 +124,7 @@ escape = function(pattern){
   }
 }
 
+#' @export
 no_escape = function(x) {
   attr(x, 'no_escape') = TRUE
   x
@@ -128,5 +146,7 @@ spaces = space
 tab          = no_escape('\t')
 tabs = tab
 
+#' @export
 "%==%" = function(x, y) { identical(x, y) }
+#' @export
 "%!=%" = function(x, y) { !identical(x, y) }

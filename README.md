@@ -16,7 +16,7 @@ regex = "^[0-9]{3}-[A-Za-z]{2}#?(?:a|b)c{2,4}\\$$"
 You can write
 ```r
 
-regex = regulaR %>% start_with(3, digits) %>%
+regex = regulaR() %>% start_with(3, digits) %>%
   then('-') %>%
   then(2L, letters) %>%
   maybe('#') %>%
